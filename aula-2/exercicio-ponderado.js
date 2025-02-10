@@ -1,17 +1,14 @@
-let nota1 = 5;
-let nota2 = 3;
-let nota3 = 10;
+let notas = [5, 3, 10];
+let soma = 0;
 
-let media = (nota1 + nota2 + nota3) / 3;
+for (let i = 0; i < notas.length; i++) {
+  soma += notas[i];
+}
+
+let media = soma / notas.length;
 
 for (let i = 1; i <= 3; i++) {
-  if (i == 1) {
-    console.log(`Nota 1: ${nota1}`);
-  } else if (i == 2) {
-    console.log(`Nota 2: ${nota2}`);
-  } else if (i == 3) {
-    console.log(`Nota 3: ${nota3}`);
-  }
+  console.log(`Nota ${i}: ${notas[i - 1]}`);
 }
 
 console.log(`🎓 Média: ${media.toFixed(2)}`);
