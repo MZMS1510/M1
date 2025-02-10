@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animações com Spritesheet</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.24.1/dist/phaser.min.js"></script>
+  </head>
+  <body>
+    <div id="game"></div>
+    <script>
+      const config = {
+        type: Phaser.AUTO,
+        parent: "game",
+        width: 1280,
+        height: 720,
+        scene: {
+          init: initScene,
+          preload: preload,
+          create: create,
+          update: update,
+        },
+      };
+
+      const game = new Phaser.Game(config);
+
+      let plane;
+
+      function initScene() {}
+
+      function preload() {
+        this.load.spritesheet("plane", "plane.png", {
+          frameWidth: 512,
+          frameHeight: 512,
+        });
+      }
+
+      function create() {
+        this.anims.create({
+          key: "fly",
+          framerate: 0.5,
+          frames: this.anims.generateFrameNumbers("plane", {
+            start: 3,
+            end: 5,
+          }),
+          repeat: -1,
+        });
+
+        this.anims.create({
+          key: "explode",
+          framerate: 1,
+          frames: this.anims.generateFrameNumbers("plane", {
+            start: 0,
+            end: 2,
+          }),
+          repeat: 2,
+        });
+
+        plane = this.add.sprite(640, 360, "plane");
+        plane.play("fly");
+
+        this.time.addEvent({
+          delay: 3000,
+          callback: () => {
+            plane.play("explode");
+          },
+        });
+      }
+
+      function update() {}
+    </script>
+  </body>
+</html>
