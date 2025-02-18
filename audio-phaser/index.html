@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teste com áudio</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        scene: { preload, create, update },
+      };
+
+      const game = new Phaser.Game(config);
+
+      function preload() {
+        this.load.audio("bg-music", "musiquinha.wav");
+      }
+
+      function create() {
+        this.music = this.sound.add("bg-music", {
+          volume: 0.2,
+          loop: true,
+        });
+
+        if (!this.sound.locked) {
+          this.music.play();
+        } else {
+          this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
+            this.music.play();
+          });
+        }
+      }
+
+      function update() {}
+    </script>
+  </body>
+</html>
